@@ -1,0 +1,58 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+struct process{
+    
+    int id,a,t,w,e;
+    
+};
+
+class CompareCol{
+    size_t colx;
+    public:
+    explicit CompareCol(size_t col):colx(col){}
+    bool operator()(process& l,process& r){
+        return l.a<r.a;
+    }
+};
+
+int main()
+{
+    int n;
+    cout<<"Enter no of processes: ";
+    cin>>n;
+    
+    process* p=new process[n];
+    
+    for(int i=0;i<n;i++){
+        cin>>p[i].id>>p[i].a>>p[i].e;
+    }
+    
+    sort(p,p+n,CompareCol(1));
+    for(int i=0;i<n;i++){
+        cout<<p[i].id<<" ";
+    }
+    
+    p[0].w=p[0].a;
+    for(int i=1;i<n;i++){
+        p[i].w=p[i-1].w+p[i-1].e;
+    }
+    
+    for(int i=1;i<n;i++){
+        p[i].w=p[i].w-p[i].a;
+    }
+    
+    for(int i=0;i<n;i++){
+        p[i].t=p[i].e+p[i].w;
+    }
+    
+    cout<<"\n";
+    for(int i=0;i<n;i++){
+        
+        cout<<i+1<<"\n";
+        cout<<p[i].w<<" "<<p[i].t<<"\n";
+        
+    }
+    
+    return 0;
+}

@@ -1,0 +1,52 @@
+#include <bits/stdc++.h> 
+using namespace std; 
+  
+struct Process { 
+    int pid;
+    int bt; 
+    int arr;
+    int rem;
+    int wt;
+}; 
+
+int main()
+{
+    int n;
+    cout<<"No of processes: ";
+    cin>>n;
+    
+    Process* p=new Process[n];
+    
+    for(int i=0;i<n;i++){
+        
+        cin>>p[i].pid>>p[i].arr>>p[i].bt;
+        p[i].rem=p[i].bt;
+    }
+    
+    int completed_processes=0,tt,endtime;
+    p[99].rem=999;
+    for(int t=0;completed_processes!=n;t++){
+        
+        int smallest=99;
+        //smallest burst time process
+        for(int i=0;i<n;i++){
+            
+            if(p[i].arr<=t && p[i].rem<p[smallest].rem&&p[i].rem>0){
+                smallest=i;
+            }
+            
+        }
+        
+        p[smallest].rem--;
+        if(p[smallest].rem==0){
+            completed_processes++;
+            cout<<smallest+1<<" ";
+            endtime=t+1;
+            tt=endtime-p[smallest].arr;
+            p[smallest].wt=tt-p[smallest].bt;
+        }
+        
+    }
+    
+    return 0;
+}

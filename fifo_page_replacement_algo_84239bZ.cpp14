@@ -1,0 +1,47 @@
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int n;
+    cout<<"Enter no of pages";
+    cin>>n;
+    
+    int pages[n];
+    cout<<"Enter page nos:";
+    for(int i=0;i<n;i++){
+        cin>>pages[i];
+    }
+    
+    int nf;
+    cout<<"Enter no of frames:";
+    cin>>nf;
+    
+    int frames[nf]={-1};
+    
+    int j=0,count=0;
+    for(int i=0;i<n;i++){
+        int avail=0;
+        for(int j=0;j<nf;j++){
+            if(frames[j]==pages[i]){
+                avail=1;
+            }
+        }
+        
+        if(avail==0){
+            frames[j]=pages[i];
+            j=(j+1)%nf;
+            count++;
+        }
+        
+        cout<<"\n";
+        for(int k=0;k<nf;k++){
+            cout<<frames[k]<<"\t";
+        }
+        
+    }
+    
+    cout<<"Page faults: "<<count;
+    
+    return 0;
+}

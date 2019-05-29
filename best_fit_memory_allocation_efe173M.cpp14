@@ -1,0 +1,54 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int n;
+    cout<<"no of mem blocks:";
+    cin>>n;
+    int mem[n];
+    cout<<"Enter size of mem blocks:";
+    for(int i=0;i<n;i++){
+        cin>>mem[i];
+    }
+    int pno;
+    cout<<"Enter no of processes:";
+    cin>>pno;
+    
+    cout<<"Enter size of process:";
+    int process[pno];
+    for(int i=0;i<pno;i++){
+        cin>>process[i];
+    }
+    
+    int allocated[n]={0};
+    int process_allocated[n]={-1};
+    
+    for(int i=0;i<pno;i++){
+        int lowest=INT_MAX,block=-1;
+        for(int j=0;j<n;j++){
+            
+            if(lowest>mem[j]&&allocated[j]==0&&mem[j]>=process[i]){
+                lowest=mem[j];
+                block=j;
+            }
+            
+        }
+        
+        
+        process_allocated[block]=i+1;
+        allocated[block]=1;
+        
+        
+    }
+    cout<<"\n";
+    for(int i=0;i<n;i++){
+        
+        if(allocated[i]!=0){
+            cout<<"Mem block no. "<<i+1<<" is allocated with process "<<process_allocated[i]<<"\n";
+        }
+        
+    }
+    
+    return 0;
+}
